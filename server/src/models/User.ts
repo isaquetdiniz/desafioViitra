@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class User {
+export class ClientUser {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,7 +21,7 @@ export class User {
   endereco: string;
 
   @Column()
-  cep: string;
+  cep: number;
 
   @Column()
   cidade: string;
