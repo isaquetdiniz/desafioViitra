@@ -1,9 +1,10 @@
 import DataInput from "./components/DataInput";
+import TableUser from "./components/TableUser";
 
 function App() {
   return (
     <>
-      <DataInput />
+      <TableUser />
     </>
   );
 }
