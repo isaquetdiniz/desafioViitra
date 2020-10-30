@@ -1,6 +1,12 @@
+import { useEffect, useState } from "react";
 import { Input, Button, Form, DatePicker, Select } from "antd";
+import axios from "axios";
 
 export default function DataInput() {
+  const [states, setStates] = useState();
+  const [districts, setDistricsts] = useState();
+  const [idUf, setIdUf] = useState();
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -15,6 +21,28 @@ export default function DataInput() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const getStates = async () => {
+    const res = await axios.get(
+      "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+    );
+    setStates(res.data);
+  };
+
+  const getDistricts = async () => {
+    const res = await axios.get(
+      `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${idUf}/municipios`
+    );
+    setDistricsts(res.data);
+  };
+
+  useEffect(() => {
+    getDistricts();
+  }, [idUf]);
+
+  useEffect(() => {
+    getStates();
+  }, []);
 
   return (
     <>
@@ -79,8 +107,13 @@ export default function DataInput() {
           name="estado"
           rules={[{ required: true, message: "Por favor, insira seu estado!" }]}
         >
-          <Select>
-            <Select.Option value="Pernambuco">Pernambuco</Select.Option>
+          <Select onChange={(value) => setIdUf(value)}>
+            {states &&
+              states.map((state) => {
+                return (
+                  <Select.Option value={state.id}>{state.nome}</Select.Option>
+                );
+              })}
           </Select>
         </Form.Item>
         <Form.Item
@@ -89,7 +122,14 @@ export default function DataInput() {
           rules={[{ required: true, message: "Por favor, insira sua cidade!" }]}
         >
           <Select>
-            <Select.Option value="Camaragibe">Camaragibe</Select.Option>
+            {districts &&
+              districts.map((district) => {
+                return (
+                  <Select.Option value={district.nome}>
+                    {district.nome}
+                  </Select.Option>
+                );
+              })}
           </Select>
         </Form.Item>
 
