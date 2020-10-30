@@ -41,12 +41,16 @@ export class createUser1604062873147 implements MigrationInterface {
             name: "estado",
             type: "varchar",
           },
+          {
+            name: "email",
+            type: "varchar",
+          },
         ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("user");
+    await queryRunner.dropTable("clientUser");
   }
 }
