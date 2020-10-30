@@ -12,9 +12,11 @@ class UserController {
     return res.status(200).json({ message: `create is working!` });
   }
   async update(req: Request, res: Response): Promise<Response> {
-    return res.status(200).json({ message: `listAll is working!` });
+    return res.status(200).json({ message: `update is working!` });
   }
   async delete(req: Request, res: Response): Promise<Response> {
-    return res.status(200).json({ message: `listAll is working!` });
+    return res.status(200).json({ message: `delete is working!` });
   }
 }
+
+export default new UserController();
