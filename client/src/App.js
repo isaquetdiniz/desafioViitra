@@ -7,6 +7,7 @@ import { Typography, Space } from "antd";
 
 function App() {
   const [visibleAdd, setVisibleAdd] = useState();
+  const [attTable, setAttTable] = useState(true);
 
   const { Title } = Typography;
 
@@ -14,14 +15,23 @@ function App() {
     <>
       <Space direction="vertical" size="large" align="center">
         <Title>Desafio Viitra</Title>
-        <Button type="primary" onClick={() => setVisibleAdd(true)}>
+        <Button
+          type="primary"
+          onClick={() => {
+            setVisibleAdd(true);
+            setAttTable(false);
+          }}
+        >
           Adicionar Usuário
         </Button>
-        <TableUser />
+        <TableUser isAttTable={attTable} />
         <Modal
           title="Criar novo usuário"
           visible={visibleAdd}
-          onCancel={() => setVisibleAdd(false)}
+          onCancel={() => {
+            setVisibleAdd(false);
+            setAttTable(true);
+          }}
           footer={null}
         >
           <DataInput />

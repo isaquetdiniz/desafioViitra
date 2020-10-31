@@ -3,12 +3,13 @@ import { Table, Space, Modal, Button } from "antd";
 import DataInput from "./DataInput";
 import axios from "axios";
 
-export default function TableUser() {
+export default function TableUser({ isAttTable }) {
   const [users, setUsers] = useState();
   const [dataSource, setDataSouce] = useState();
   const [visible, setVisible] = useState(false);
   const [details, setDetails] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState();
+  const [attTable, setAttTable] = useState(true);
 
   const getUsers = async () => {
     const res = await axios.get(`http://localhost:3001/users`);
@@ -81,6 +82,7 @@ export default function TableUser() {
             onClick={() => {
               setVisibleEdit(true);
               getInformation(record.id);
+              setAttTable(false);
             }}
           >
             Editar
@@ -98,8 +100,10 @@ export default function TableUser() {
   }, [users]);
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    if (isAttTable | attTable) {
+      getUsers();
+    }
+  }, [isAttTable, attTable]);
 
   return (
     <>
@@ -131,7 +135,10 @@ export default function TableUser() {
       <Modal
         title="Editar Informações"
         visible={visibleEdit}
-        onCancel={() => setVisibleEdit(false)}
+        onCancel={() => {
+          setVisibleEdit(false);
+          setAttTable(true);
+        }}
         footer={null}
       >
         <DataInput details={details} />
