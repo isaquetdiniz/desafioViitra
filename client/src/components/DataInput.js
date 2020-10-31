@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Input, Button, Form, DatePicker, Select } from "antd";
 import axios from "axios";
 
-export default function DataInput() {
+export default function DataInput({ details }) {
   const [states, setStates] = useState();
   const [districts, setDistricsts] = useState();
   const [idUf, setIdUf] = useState();
+  const [form] = Form.useForm();
 
   const layout = {
     labelCol: { span: 8 },
@@ -44,12 +45,26 @@ export default function DataInput() {
     getStates();
   }, []);
 
+  useEffect(() => {
+    if (details !== false && details !== undefined) {
+      form.setFieldsValue({
+        nome: details.nome,
+        endereco: details.endereco,
+        email: details.email,
+        cep: details.cep,
+        cpf: details.cpf,
+        estado: details.estado,
+        cidade: details.cidade,
+      });
+    }
+  }, [details]);
+
   return (
     <>
       <Form
         {...layout}
         name="basic"
-        initialValues={{ remember: true }}
+        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >

@@ -130,7 +130,7 @@ export default function TableUser() {
         onOk={() => setVisibleEdit(false)}
         onCancel={() => setVisibleEdit(false)}
       >
-        <DataInput data={details} />
+        <DataInput details={details} />
       </Modal>
     </>
   );
