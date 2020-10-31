@@ -103,7 +103,11 @@ export default function TableUser() {
 
   return (
     <>
-      <Table dataSource={dataSource && dataSource} columns={columns} />
+      <Table
+        dataSource={dataSource && dataSource}
+        columns={columns}
+        size="auto"
+      />
       <Modal
         title="Informações Detalhadas"
         visible={visible}
