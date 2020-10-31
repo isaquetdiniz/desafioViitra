@@ -107,8 +107,8 @@ export default function TableUser() {
       <Modal
         title="Informações Detalhadas"
         visible={visible}
-        onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
+        footer={null}
       >
         {details && (
           <>
@@ -127,8 +127,8 @@ export default function TableUser() {
       <Modal
         title="Editar Informações"
         visible={visibleEdit}
-        onOk={() => setVisibleEdit(false)}
         onCancel={() => setVisibleEdit(false)}
+        footer={null}
       >
         <DataInput details={details} />
       </Modal>
