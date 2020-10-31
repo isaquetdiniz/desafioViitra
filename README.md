@@ -49,5 +49,10 @@ DATABASE_DB=viitra
 ### Com o server configurado e rodando
 1. É a hora de rodar o nosso client!!! :)
 2. Para isso, navegue até o client e rode ```yarn install```
-3. Após a instalação, é só rodar ```yarn start```
-4. O client estará rodando na ```localhost:3001```
+3. Se ocorrer erro por causa da versão do Node, é possível resolver com (e repetir o passo 2):
+```
+sudo npm i -g n
+sudo n 14
+```
+4. Após a instalação, é só rodar ```yarn start```
+5. O client estará rodando na ```localhost:3001```
