@@ -20,7 +20,7 @@ O projeto consegue realizar as operações básicas e dar o feedback para o usu�
 
 ### O primeiro passo é rodar o docker
 1. Se você não tem o docker instalado, pode seguir a instalação por [aqui](https://docs.docker.com/get-docker/).
-2. Agora, em seu terminal rode: ```sudo docker pull mysql:5.6``` para baixar uma nova imagem docker mysql (utilizei a versão 5.6 por perceber alguns problemas de autentitação com a versão mais recente)
+2. Agora, em seu terminal rode: ```sudo docker pull mysql:5.6``` para baixar uma nova imagem docker mysql (utilizei a versão 5.6 por perceber alguns problemas de autenticação com a versão mais recente)
 3. Após isso, é possível iniciar o container com ```sudo docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=docker mysql:5.6```
 4. Com o container rodando, abra um novo terminal e digite ```sudo docker ps``` para listá-lo e copie o seu **CONTAINER ID**.
 5. Agora, vamos acessá-lo usando ```sudo docker exec -it <CONTAINER ID> bash```
