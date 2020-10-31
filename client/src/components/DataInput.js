@@ -40,6 +40,36 @@ export default function DataInput({ details }) {
     }
   };
 
+  const onFinishEdit = async (values) => {
+    let nameState = [{ nome: "" }];
+
+    if (typeof values.estado === "string") {
+      nameState[0].nome = values.estado;
+    } else {
+      nameState = states.filter((obj) => {
+        return obj.id === values.estado;
+      });
+    }
+
+    const res = await axios.put(`http://localhost:3001/user/${details.id}`, {
+      nome: values.nome,
+      dataNascimento: values.dataNascimento,
+      cep: values.cep,
+      cpf: values.cpf,
+      endereco: values.endereco,
+      estado: nameState[0].nome,
+      cidade: values.cidade,
+      email: values.email,
+    });
+
+    if (!res) {
+      Modal.error({ content: "Um erro ocorreu" });
+    } else if (res.status === 200) {
+      Modal.success({ content: "Usuário Atualizado!" });
+      form.resetFields();
+    }
+  };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -86,7 +116,7 @@ export default function DataInput({ details }) {
         {...layout}
         name="basic"
         form={form}
-        onFinish={onFinish}
+        onFinish={details ? onFinishEdit : onFinish}
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
