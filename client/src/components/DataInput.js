@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Input, Button, Form, DatePicker, Select } from "antd";
+import { Input, Button, Form, DatePicker, Select, Modal } from "antd";
 import axios from "axios";
 
 export default function DataInput({ details }) {
@@ -15,8 +15,29 @@ export default function DataInput({ details }) {
   const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
   };
-  const onFinish = (values) => {
-    console.log("Success:", values);
+
+  const onFinish = async (values) => {
+    let nameState = states.filter((obj) => {
+      return obj.id === values.estado;
+    });
+
+    const res = await axios.post("http://localhost:3001/user", {
+      nome: values.nome,
+      dataNascimento: values.dataNascimento,
+      cep: values.cep,
+      cpf: values.cpf,
+      endereco: values.endereco,
+      estado: nameState[0].nome,
+      cidade: values.cidade,
+      email: values.email,
+    });
+
+    if (!res) {
+      Modal.error({ content: "Um erro ocorreu" });
+    } else if (res.status === 200) {
+      Modal.success({ content: "Usuário Salvo com sucesso!" });
+      form.resetFields();
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
